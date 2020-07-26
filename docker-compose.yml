@@ -2,7 +2,7 @@ version: "2"
 services:
   app:
     build: ./app
-    container_name: "Flask_App"
+    container_name: "Flask_App_3"
     depends_on:
       - db
     ports:
@@ -16,4 +16,4 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./db/docker-entrypiont-initdb.d/:ro
+      - ./db:/docker-entrypoint-initdb.d/:ro
