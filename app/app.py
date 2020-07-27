@@ -18,7 +18,7 @@ mysql.init_app(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    user = {'username': 'Chikas Project'}
+    user = {'username': "Chika's Project"}
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM biostatsData')
     result = cursor.fetchall()
@@ -54,7 +54,7 @@ def form_update_post(stat_id):
     return redirect('/', code=302)
 
 
-@app.route('/biostats/new', methods=['POST'])
+@app.route('/biostats/new', methods=['GET'])
 def form_insert_get():
     return render_template('new.html', title='New Biostats Form')
 

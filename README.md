@@ -3,9 +3,6 @@
 ## Project Description
 This project is a homework assignment to teach how to get Pycharm setup with Docker, Flask, MySQL, and Bootstrap using new data
 
-## Postman Screenshot
-![postman request output](screenshots/postman.png)
-
 ## Query Screenshot
 ![Query Data from PyCharm](screenshots/query.png)
 
