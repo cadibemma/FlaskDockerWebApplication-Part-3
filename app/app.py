@@ -18,7 +18,7 @@ mysql.init_app(app)
 
 @app.route('/', methods=['GET'])
 def index():
-    user = {'username': 'Chika"s Project'}
+    user = {'username': 'Chikas Project'}
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM biostatsData')
     result = cursor.fetchall()
@@ -33,21 +33,21 @@ def record_view(stat_id):
     return render_template('view.html', title='View Form', biostat=result[0])
 
 
-@app.route('/view/<int:stat_id>', methods=['GET'])
-def record_view(stat_id):
+@app.route('/edit/<int:stat_id>', methods=['GET'])
+def form_edit_get(stat_id):
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM biostatsData WHERE id=%s', stat_id)
     result = cursor.fetchall()
     return render_template('edit.html', title='Edit Form', biostat=result[0])
 
 
-@app.route('/view/<int:stat_id>', methods=['POST'])
-def record_view(stat_id):
+@app.route('/edit/<int:stat_id>', methods=['POST'])
+def form_update_post(stat_id):
     cursor = mysql.get_db().cursor()
     inputData = (
         request.form.get('Name'), request.form.get('Sex'), request.form.get('Age'), request.form.get('Height_in'),
         request.form.get('Weight_lbs'), stat_id)
-    sql_update_query = """UPDATE biostatsData t SET t.Name= %s, t.Sex= %s, t.Age=%s, t.Height_in=%s, t.Weight_lbs=%s 
+    sql_update_query = """UPDATE biostatsData t SET t.Name= %s, t.Sex= %s, t.Age=%s, t.Height_in=%s, t.Weight_lbs=%s
                         WHERE t.id=%s """
     cursor.execute(sql_update_query, inputData)
     mysql.get_db().commit()
@@ -65,7 +65,7 @@ def form_insert_post():
     inputData = (
         request.form.get('Name'), request.form.get('Sex'), request.form.get('Age'), request.form.get('Height_in'),
         request.form.get('Weight_lbs'))
-    sql_insert_query = """INSERT INTO biostatsData (Name, Sex, Age, Height_in, Weight_lbs) VALUES (%s, %s, %s, %s, 
+    sql_insert_query = """INSERT INTO biostatsData (Name, Sex, Age, Height_in, Weight_lbs) VALUES (%s, %s, %s, %s,
     %s) """
     cursor.execute(sql_insert_query, inputData)
     mysql.get_db().commit()
@@ -91,7 +91,7 @@ def api_browse() -> str:
     return resp
 
 
-@app.route('api/v1/biostats/<int:stat_id>', methods=['GET'])
+@app.route('/api/v1/biostats/<int:stat_id>', methods=['GET'])
 def api_retrieve(stat_id) -> str:
     cursor = mysql.get_db().cursor()
     cursor.execute('SELECT * FROM biostatsData WHERE id=%s', stat_id)
