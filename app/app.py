@@ -81,6 +81,8 @@ def form_delete_post(stat_id):
     return redirect('/', code=302)
 
 
+#API functions (Web Application  Part 4/ Final)
+
 @app.route('/api/v1/biostats', methods=['GET'])
 def api_browse() -> str:
     cursor = mysql.get_db().cursor()
@@ -103,19 +105,41 @@ def api_retrieve(stat_id) -> str:
 
 @app.route('/api/v1/biostats/', methods=['POST'])
 def api_add() -> str:
+
+    content = request.json
+
+    cursor = mysql.get_db().cursor()
+    inputData = (content['Name'], content['Sex'], content['Age'], content['Height_in'], content['Weight_lbs'])
+    sql_insert_query = """INSERT INTO biostatsData (NAME, SEX, AGE, HEIGHT_IN, WEIGHT_LBS) VALUES (%s, %s, %s, %s, %s)"""
+    cursor.execute(sql_insert_query,inputData)
+    mysql.get_db().commit()
     resp = Response(status=201, mimetype='application/json')
     return resp
 
 
 @app.route('/api/v1/biostats/<int:stat_id>', methods=['PUT'])
 def api_edit(stat_id) -> str:
-    resp = Response(status=201, mimetype='application/json')
+
+    content = request.json
+
+    cursor = mysql.get_db().cursor()
+    inputData = (content['Name'], content['Sex'], content['Age'], content['Height_in'], content['Weight_lbs'], stat_id)
+    sql_insert_query = """UPDATE biostatsData b SET b.Name = %s, b.Sex =%s, b.Age =%s, b.Height_in = %s, b.Weight_lbs = %s WHERE b.id = %s"""
+    cursor.execute(sql_insert_query, inputData)
+    mysql.get_db().commit()
+
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
 @app.route('/api/v1/biostats/<int:stat_id>', methods=['DELETE'])
 def api_delete(stat_id) -> str:
-    resp = Response(status=201, mimetype='application/json')
+
+    cursor = mysql.get_db().cursor()
+    sql_delete_query = """DELETE FROM biostatsData WHERE id = %s"""
+    cursor.execute(sql_delete_query, stat_id)
+    mysql.get_db().commit()
+    resp = Response(status=200, mimetype='application/json')
     return resp
 
 
