@@ -81,42 +81,42 @@ def form_delete_post(stat_id):
     return redirect('/', code=302)
 
 
-@app.route('/api/v1/biostats', methods=['GET'])
-def api_browse() -> str:
-    cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM biostatsData')
-    result = cursor.fetchall()
-    json_result = json.dumps(result)
-    resp = Response(json_result, status=200, mimetype='application/json')
-    return resp
-
-
-@app.route('/api/v1/biostats/<int:stat_id>', methods=['GET'])
-def api_retrieve(stat_id) -> str:
-    cursor = mysql.get_db().cursor()
-    cursor.execute('SELECT * FROM biostatsData WHERE id=%s', stat_id)
-    result = cursor.fetchall()
-    json_result = json.dumps(result)
-    resp = Response(json_result, status=200, mimetype='application/json')
-    return resp
-
-
-@app.route('/api/v1/biostats/', methods=['POST'])
-def api_add() -> str:
-    resp = Response(status=201, mimetype='application/json')
-    return resp
-
-
-@app.route('/api/v1/biostats/<int:stat_id>', methods=['PUT'])
-def api_edit(stat_id) -> str:
-    resp = Response(status=201, mimetype='application/json')
-    return resp
-
-
-@app.route('/api/v1/biostats/<int:stat_id>', methods=['DELETE'])
-def api_delete(stat_id) -> str:
-    resp = Response(status=201, mimetype='application/json')
-    return resp
+# @app.route('/api/v1/biostats', methods=['GET'])
+# def api_browse() -> str:
+#     cursor = mysql.get_db().cursor()
+#     cursor.execute('SELECT * FROM biostatsData')
+#     result = cursor.fetchall()
+#     json_result = json.dumps(result)
+#     resp = Response(json_result, status=200, mimetype='application/json')
+#     return resp
+#
+#
+# @app.route('/api/v1/biostats/<int:stat_id>', methods=['GET'])
+# def api_retrieve(stat_id) -> str:
+#     cursor = mysql.get_db().cursor()
+#     cursor.execute('SELECT * FROM biostatsData WHERE id=%s', stat_id)
+#     result = cursor.fetchall()
+#     json_result = json.dumps(result)
+#     resp = Response(json_result, status=200, mimetype='application/json')
+#     return resp
+#
+#
+# @app.route('/api/v1/biostats/', methods=['POST'])
+# def api_add() -> str:
+#     resp = Response(status=201, mimetype='application/json')
+#     return resp
+#
+#
+# @app.route('/api/v1/biostats/<int:stat_id>', methods=['PUT'])
+# def api_edit(stat_id) -> str:
+#     resp = Response(status=201, mimetype='application/json')
+#     return resp
+#
+#
+# @app.route('/api/v1/biostats/<int:stat_id>', methods=['DELETE'])
+# def api_delete(stat_id) -> str:
+#     resp = Response(status=201, mimetype='application/json')
+#     return resp
 
 
 if __name__ == '__main__':
